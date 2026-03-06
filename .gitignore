@@ -1,1 +1,18 @@
+# Debug files
 gpu/debug*
+*.html
+*.png
+
+# Logs
+*.log
+gpu/oracle.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
