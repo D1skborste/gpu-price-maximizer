@@ -1,2 +1,0 @@
-# GPU Price Maximizer - Dependencies
-playwright>=1.40.0
