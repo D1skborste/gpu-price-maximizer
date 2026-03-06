@@ -7,6 +7,9 @@ gpu/debug*
 *.log
 gpu/oracle.log*
 
+# Environment
+.env
+
 # Python
 __pycache__/
 *.pyc
