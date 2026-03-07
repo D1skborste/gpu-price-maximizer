@@ -1,0 +1,22 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+
+
+  search-agent:
+    build: .
+    volumes:
+      - .:/app  # This "links" your current folder to the container
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - OLLAMA_API_KEY=your_key_here
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  ollama_storage:

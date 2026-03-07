@@ -1,262 +1,246 @@
 #!/usr/bin/env python3
 """
-GPU Arbitrage Oracle - Agentic Version
+GPU Arbitrage Oracle - Local LLM Debate Version
 
-Tool 1: Web search for prices (DuckDuckGo)
-Tool 2: GitHub Models for analysis (gpt-4o-mini)
-
-NOTE: analyze_bargains tool is commented out. Instead, the script prompts 
-you to ask the AI (me) to do web searches via webfetch, then you paste 
-the results back into the script.
+Step 1: DuckDuckGo search for GPU specs and prices
+Step 2: Ollama local LLM debate (3 personalities)
+Step 3: Loop until 2-1 consensus
+Step 4: Log to oracle.log
 """
 
 import os
-import re
 import json
-import time
-import requests
-from datetime import datetime, timezone
+import datetime
 from pathlib import Path
-from typing import Any
 
-import openai
-from dotenv import load_dotenv
-
-load_dotenv()
+from ollama import Client
+from ddgs import DDGS
 
 LOG_FILE = Path(__file__).parent / "oracle.log"
 GPU_MODELS = ["RTX 4090", "RTX 4080 Super", "RTX 4070 Ti Super", "RTX 5090", "RTX 5080", "RTX 5070 Ti"]
 MAX_LOG_SIZE = 1048576  # 1MB
 
+MODEL = "qwen3:4b"
 
-class OracleAgent:
-    """The inefficient oracle agent - uses multiple AI tools"""
+OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+ollama_client = Client(host=OLLAMA_HOST)
+
+
+PERSONALITIES = {
+    "Bag Holder": "You are a crypto investor who lost big on a memecoin. You need to recoup your losses by mining. Argue which GPU is the best for mining profitability. Use crypto slang like HODL, moon, rug-pull, based, and degen. Be aggressive and dismiss other opinions.",
+    "Gamer": "You are a hardcore PC gamer who demands the best performance for high-refresh-rate gaming and Ray Tracing. Argue which GPU gives the most value for money. Use terms like FPS, bottleneck, raster, RT, and VRAM. Be dismissive of non-gaming concerns.",
+    "Tree Hugger": "You are a fanatic Greenpeace activist who obsesses over carbon footprints, e-waste, and renewable energy. Argue which GPU is the most environmentally friendly. Be very judgmental of others' choices. Use terms like CO2, carbon footprint, e-waste, and sustainable."
+}
+
+
+def search_gpu_info(gpu_list: list[str]) -> str:
+    """Search DuckDuckGo for GPU specs and prices"""
+    print("\n[SEARCH] Starting DuckDuckGo searches...")
+    results = []
     
-    def __init__(self):
-        self.tools = {
-            "search_prices": self.search_prices,
-            "analyze_bargains": self.analyze_bargains,
-        }
-        self.github_client = openai.OpenAI(
-            api_key=os.getenv("gitpatapi"),
-            base_url="https://models.github.ai/inference"
-        )
-        print(f"[ORACLE] Agent initialized with tools: {list(self.tools.keys())}")
+    for gpu in gpu_list:
+        print(f"[SEARCH] Searching for {gpu}...")
+        try:
+            with DDGS() as ddgs:
+                # Search for specs
+                specs_results = ddgs.text(f"{gpu} specs performance price 2025", max_results=3)
+                specs_text = "\n".join([r['body'] for r in specs_results]) if specs_results else "No specs found"
+                
+                # Search for price
+                price_results = ddgs.text(f"{gpu} price NVIDIA", max_results=3)
+                price_text = "\n".join([r['body'] for r in price_results]) if price_results else "No prices found"
+                
+                results.append(f"\n=== {gpu} ===\nSPECS:\n{specs_text}\n\nPRICES:\n{price_text}")
+                print(f"[SEARCH] Found info for {gpu}")
+        except Exception as e:
+            print(f"[SEARCH] Error searching for {gpu}: {e}")
+            results.append(f"\n=== {gpu} ===\nError: {e}")
     
-    def call_tool(self, tool_name: str, **kwargs) -> Any:
-        """Call a tool by name with given arguments"""
-        if tool_name not in self.tools:
-            raise ValueError(f"Unknown tool: {tool_name}")
-        
-        print(f"[ORACLE] Calling tool: {tool_name}")
-        result = self.tools[tool_name](**kwargs)
-        print(f"[ORACLE] Tool {tool_name} completed")
-        return result
+    return "\n".join(results)
+
+
+def run_debate(gpu_list: list[str], search_results: str) -> dict:
+    """Run the trio debate until 2-1 consensus"""
+    print("\n[DEBATE] Starting Ollama debate...")
     
-    def search_prices(self, gpu_list: list[str]) -> dict[str, str]:
-        """Tool 1: Search web for current GPU prices"""
-        print(f"[TOOL] search_prices: Fetching prices for {len(gpu_list)} GPUs...")
+    names = list(PERSONALITIES.keys())
+    round_num = 0
+    max_rounds = 10
+    
+    full_transcript = f"DEBATE TOPIC: Best GPU for different needs\n"
+    full_transcript += f"GPUs: {', '.join(gpu_list)}\n"
+    full_transcript += f"Search results:\n{search_results}\n"
+    full_transcript += "="*50 + "\n"
+    
+    round_summaries = []
+    consensus = None
+    
+    current_context = f"The GPUs to debate: {', '.join(gpu_list)}\n\nSearch results:\n{search_results}\n\nEach person must argue for their preferred GPU based on their unique goals."
+    
+    while round_num < max_rounds and consensus is None:
+        round_num += 1
+        print(f"\n[DEBATE] Round {round_num}")
         
-        prices = {}
+        round_args = []
         
-        for gpu in gpu_list:
-            print(f"[TOOL] Searching for {gpu}...")
+        for name in names:
+            print(f"[DEBATE] {name} is formulating...")
+            
+            system_prompt = f"{PERSONALITIES[name]} Keep your response concise (2-3 sentences max) but punchy. State clearly which GPU you recommend and WHY."
+            
             try:
-                url = "https://html.duckduckgo.com/html/"
-                params = {"q": f"{gpu} price 2026"}
-                headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+                response = ollama_client.chat(
+                    model=MODEL,
+                    messages=[
+                        {'role': 'system', 'content': system_prompt},
+                        {'role': 'user', 'content': f"The current debate state:\n{current_context}\n\nWhat is your take? Which GPU do you recommend?"}
+                    ],
+                    options={'temperature': 0.85}
+                )
                 
-                response = requests.get(url, params=params, headers=headers, timeout=10)
-                html = response.text
+                reply = response.message.content
                 
-                price_patterns = [
-                    rf"{re.escape(gpu)}.*?\$(\d{{1,4}}(?:,\d{{3}})*(?:,\d{{3}})?)",
-                    rf"\$\d{{1,4}}(?:,\d{{3}})*.*?{re.escape(gpu)}",
-                    rf"(\$?\d{{1,4}}(?:,\d{{3}})*)\s*-\s*{re.escape(gpu)}",
-                ]
+                # Extract GPU recommendation and reason for summary
+                summary = f"{name}: {reply}"
+                round_args.append(summary)
                 
-                for pattern in price_patterns:
-                    match = re.search(pattern, html, re.IGNORECASE | re.DOTALL)
-                    if match:
-                        price = match.group(1)
-                        prices[gpu] = f"${price}" if not price.startswith('$') else price
-                        print(f"[TOOL] Found {gpu}: {prices[gpu]}")
-                        break
+                current_context = f"{name} said: {reply}"
+                full_transcript += f"\n\n[ROUND {round_num} - {name.upper()}]:\n{reply}"
                 
-                if gpu not in prices:
-                    prices[gpu] = "Price not found"
-                    print(f"[TOOL] Could not find price for {gpu}")
-                
-                time.sleep(1)
+                print(f"[DEBATE] {name} finished.")
                 
             except Exception as e:
-                print(f"[TOOL] Error searching for {gpu}: {e}")
-                prices[gpu] = "Error"
+                print(f"[DEBATE] Error with {name}: {e}")
+                round_args.append(f"{name}: Error - {e}")
         
-        return prices
+        # Create round summary
+        round_summary = f"Round {round_num}:\n" + "\n".join([f"- {arg}" for arg in round_args])
+        round_summaries.append(round_summary)
+        
+        print(f"\n[DEBATE] Round {round_num} summary:\n{round_summary}")
+        
+        # Check for 2-1 consensus
+        gpu_mentions = {}
+        for arg in round_args:
+            for gpu in gpu_list:
+                if gpu.lower() in arg.lower():
+                    gpu_mentions[gpu] = gpu_mentions.get(gpu, 0) + 1
+        
+        if gpu_mentions:
+            # Find majority
+            max_mentions = max(gpu_mentions.values())
+            if max_mentions >= 2:
+                # Found consensus
+                winners = [g for g, c in gpu_mentions.items() if c == max_mentions]
+                consensus = {
+                    "winner": winners[0] if len(winners) == 1 else winners,
+                    "votes": max_mentions,
+                    "round": round_num,
+                    "all_mentions": gpu_mentions
+                }
+                full_transcript += f"\n\n=== CONSENSUS REACHED in Round {round_num} ==="
+                full_transcript += f"\nWinner: {consensus['winner']} ({consensus['votes']}/3 votes)"
+                print(f"\n[DEBATE] CONSENSUS: {consensus['winner']} wins with {consensus['votes']}/3 votes!")
     
-    def analyze_bargains(self, prices: dict[str, str], gpu_list: list[str]) -> dict[str, Any]:
-        """Tool 2: Use GitHub Models to analyze and score GPUs"""
-        print(f"[TOOL] analyze_bargains: Analyzing {len(prices)} GPUs...")
-        
-        price_summary = "\n".join([f"- {gpu}: {prices.get(gpu, 'Unknown')}" for gpu in gpu_list])
-        
-        prompt = f"""You are the 'GPU Arbitrage Oracle.' Analyze these GPU prices and determine bargain scores.
-
-Current prices found:
-{price_summary}
-
-For EACH GPU, provide:
-1. A Bargain Score from 0-100 (100 = best deal)
-2. Brief justification (1-2 sentences)
-
-Then rank them from BEST to WORST deal.
-
-Format your response like this:
-- GPU_NAME: $PRICE - Bargain Score: XX/100 - Brief reason
-
-IMPORTANT: Be thorough and consider performance per dollar."""
-        
-        response = self.github_client.chat.completions.create(
-            model="openai/gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are a GPU pricing expert known for thorough analysis."},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        
-        analysis_text = response.choices[0].message.content or ""
-        
-        scores = self._extract_scores(analysis_text, gpu_list)
-        
-        return {
-            "analysis": analysis_text,
-            "scores": scores
+    if consensus is None:
+        consensus = {
+            "winner": "NO CONSENSUS",
+            "votes": 0,
+            "round": round_num,
+            "note": f"Debate ended after {round_num} rounds without consensus"
         }
+        full_transcript += f"\n\n=== NO CONSENSUS REACHED ==="
     
-    def _extract_scores(self, text: str, gpu_list: list[str]) -> dict[str, int]:
-        """Extract bargain scores from LLM response"""
-        scores = {}
-        
-        for gpu in gpu_list:
-            patterns = [
-                rf"{re.escape(gpu)}.*?(\d{{1,3}})/100",
-                rf"Bargain Score:? (\d{{1,3}})",
-                rf"Score: (\d{{1,3}})",
-            ]
-            
-            for pattern in patterns:
-                match = re.search(pattern, text, re.IGNORECASE)
-                if match:
-                    score = int(match.group(1))
-                    if 0 <= score <= 100:
-                        scores[gpu] = score
-                        break
-        
-        return scores
+    return {
+        "full_transcript": full_transcript,
+        "round_summaries": round_summaries,
+        "consensus": consensus,
+        "rounds": round_num
+    }
+
+
+def log_result(result: dict) -> None:
+    """Log result to oracle.log"""
+    rotate_log_if_needed()
     
-    def calculate_verdict(self, scores: dict[str, int]) -> dict[str, Any]:
-        """Calculate overall verdict from scores"""
-        if not scores:
-            return {"verdict": "NO_DATA", "consensus_score": None}
-        
-        avg = sum(scores.values()) / len(scores)
-        
-        if avg >= 70:
-            verdict = "STRONG_BUY"
-        elif avg >= 50:
-            verdict = "MODERATE_DEAL"
-        elif avg >= 30:
-            verdict = "OVERPRICED"
-        else:
-            verdict = "AVOID"
-        
-        return {
-            "verdict": verdict,
-            "consensus_score": round(avg, 1),
-            "confidence": "HIGH" if len(scores) >= 3 else "MEDIUM"
-        }
+    timestamp = datetime.datetime.now().isoformat()
+    log_entry = {
+        "timestamp": timestamp,
+        "type": "oracle_debate",
+        **result
+    }
     
-    def run(self):
-        """Main agent execution"""
-        print(f"\n{'='*60}")
-        print(f"[ORACLE] GPU Arbitrage Oracle - Starting")
-        print(f"[ORACLE] Target GPUs: {', '.join(GPU_MODELS)}")
-        print(f"{'='*60}\n")
-        
-        # Step 1: Search for prices
-        print("[PHASE 1] Searching for GPU prices...")
-        prices = self.call_tool("search_prices", gpu_list=GPU_MODELS)
-        print(f"[PHASE 1] Prices found: {prices}\n")
-        
-        # Step 2: Analyze with GitHub Models
-        print("[PHASE 2] Analyzing bargains with GitHub Models...")
-        analysis_result = self.call_tool("analyze_bargains", prices=prices, gpu_list=GPU_MODELS)
-        print(f"[PHASE 2] Scores: {analysis_result['scores']}\n")
-        
-        # Step 3: Calculate verdict
-        verdict = self.calculate_verdict(analysis_result["scores"])
-        
-        # Step 4: Log result
-        result = {
-            "gpu_models": GPU_MODELS,
-            "prices": prices,
-            "analysis": analysis_result["analysis"][:1500],
-            "bargain_scores": analysis_result["scores"],
-            "consensus": verdict
-        }
-        
-        self.log_result(result)
-        
-        print(f"\n{'='*60}")
-        print(f"[ORACLE] CONSENSUS REACHED")
-        print(f"[ORACLE] Verdict: {verdict['verdict']}")
-        print(f"[ORACLE] Score: {verdict['consensus_score']}/100")
-        print(f"[ORACLE] Detailed scores: {analysis_result['scores']}")
-        print(f"{'='*60}\n")
-        
-        return result
-    
-    def log_result(self, result: dict) -> None:
-        """Log result to oracle.log"""
-        self.rotate_log_if_needed()
-        
-        timestamp = datetime.now(timezone.utc).isoformat()
-        log_entry = {
-            "timestamp": timestamp,
-            "type": "oracle_report",
-            **result
-        }
-        
+    try:
         with open(LOG_FILE, "a") as f:
             f.write(json.dumps(log_entry) + "\n")
-        
-        print(f"[ORACLE] Result logged to {LOG_FILE}")
+        print(f"\n[ORACLE] Result logged to {LOG_FILE}")
+    except PermissionError:
+        fallback = Path("/tmp/oracle.log")
+        with open(fallback, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
+        print(f"\n[ORACLE] Result logged to {fallback}")
+
+
+def rotate_log_if_needed() -> None:
+    """Truncate oldest entries if log exceeds 1MB"""
+    if not LOG_FILE.exists():
+        return
     
-    def rotate_log_if_needed(self) -> None:
-        """Truncate oldest entries if log exceeds 1MB"""
-        if not LOG_FILE.exists():
-            return
-        
+    try:
         size = LOG_FILE.stat().st_size
-        if size > MAX_LOG_SIZE:
+    except PermissionError:
+        return
+    
+    if size > MAX_LOG_SIZE:
+        try:
             with open(LOG_FILE, 'r') as f:
                 lines = f.readlines()
-            
-            total_size = size
-            while total_size > MAX_LOG_SIZE and lines:
-                removed = lines.pop(0)
-                total_size -= len(removed.encode('utf-8'))
-            
+        except PermissionError:
+            return
+        
+        total_size = size
+        while total_size > MAX_LOG_SIZE and lines:
+            removed = lines.pop(0)
+            total_size -= len(removed.encode('utf-8'))
+        
+        try:
             with open(LOG_FILE, 'w') as f:
                 f.writelines(lines)
-            
             print(f"[ORACLE] Log rotated, removed old entries")
+        except PermissionError:
+            pass
 
 
 def main():
-    agent = OracleAgent()
-    agent.run()
+    print("="*60)
+    print("[ORACLE] GPU Arbitrage Oracle - Local LLM Debate")
+    print("="*60)
+    
+    # Step 1: Search DuckDuckGo
+    print("\n[STEP 1] Searching DuckDuckGo for GPU info...")
+    search_results = search_gpu_info(GPU_MODELS)
+    print(f"\n[SEARCH] Done! Got info for {len(GPU_MODELS)} GPUs")
+    
+    # Step 2: Run debate
+    print("\n[STEP 2] Running Ollama debate...")
+    debate_result = run_debate(GPU_MODELS, search_results)
+    
+    # Step 3: Log results
+    print("\n[STEP 3] Logging results...")
+    log_result(debate_result)
+    
+    # Print summary
+    print("\n" + "="*60)
+    print("[ORACLE] DEBATE SUMMARY")
+    print("="*60)
+    
+    for summary in debate_result["round_summaries"]:
+        print(f"\n{summary}")
+    
+    print(f"\n{'='*60}")
+    print(f"FINAL RESULT: {debate_result['consensus']['winner']}")
+    print(f"Rounds: {debate_result['rounds']}")
+    print(f"{'='*60}\n")
 
 
 if __name__ == "__main__":

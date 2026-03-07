@@ -6,3 +6,7 @@ And finally, what’s gaming without music? I’m running an agent that will cre
 
 This took dedication, true grit, hardly working low effort vibes. Consistently trying to not improve something that’s barely working. 
 Future updates: Enshittification through the implementation of a tiered subscription service. 
+
+
+
+failed to start daemon: Error initializing network controller: error obtaining controller instance: failed to register "bridge" driver: failed to create NAT chain DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables failed: iptables --wait -t nat -N DOCKER: iptables v1.8.11 (legacy): can't initialize iptables table `nat': Table does not exist (do you need to insmod>
