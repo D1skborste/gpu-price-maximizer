@@ -1,229 +1,210 @@
-ORACLE] GPU Arbitrage Oracle - Local LLM Debate
+[DEBATE] GPU Debate - Ollama LLM
 ============================================================
 
-[STEP 1] Searching DuckDuckGo for GPU info...
-
-[SEARCH] Starting DuckDuckGo searches...
-[SEARCH] Searching for RTX 4090...
-[SEARCH] Found info for RTX 4090
-[SEARCH] Searching for RTX 4080 Super...
-[SEARCH] Found info for RTX 4080 Super
-[SEARCH] Searching for RTX 4070 Ti Super...
-[SEARCH] Found info for RTX 4070 Ti Super
-[SEARCH] Searching for RTX 5090...
-[SEARCH] Found info for RTX 5090
-[SEARCH] Searching for RTX 5080...
-[SEARCH] Found info for RTX 5080
-[SEARCH] Searching for RTX 5070 Ti...
-[SEARCH] Found info for RTX 5070 Ti
-
-[SEARCH] Done! Got info for 6 GPUs
-
+[STEP 1] Loading search results...
 [STEP 2] Running Ollama debate...
 
 [DEBATE] Starting Ollama debate...
 
 [DEBATE] Round 1
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 1 summary:
 Round 1:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 2
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 2 summary:
 Round 2:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 3
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 3 summary:
 Round 3:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 4
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 4 summary:
 Round 4:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 5
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 5 summary:
 Round 5:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 6
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 6 summary:
 Round 6:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 7
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 7 summary:
 Round 7:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 8
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 8 summary:
 Round 8:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 9
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 9 summary:
 Round 9:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 10
 [DEBATE] Bag Holder is formulating...
-[DEBATE] Error with Bag Holder: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Bag Holder: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Gamer is formulating...
-[DEBATE] Error with Gamer: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Gamer: model 'qwen3:0.5b' not found (status code: 404)
 [DEBATE] Tree Hugger is formulating...
-[DEBATE] Error with Tree Hugger: model 'qwen3:4b' not found (status code: 404)
+[DEBATE] Error with Tree Hugger: model 'qwen3:0.5b' not found (status code: 404)
 
 [DEBATE] Round 10 summary:
 Round 10:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 [STEP 3] Logging results...
 
-[ORACLE] Result logged to /home/kossan/Documents/GitHub/gpu-price-maximizer/gpu/oracle.log
+[ORACLE] Result logged to /home/kossan/Documents/GitHub/gpu-price-maximizer/gpu/oracle_debate.log
 
 ============================================================
 [ORACLE] DEBATE SUMMARY
 ============================================================
 
 Round 1:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 2:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 3:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 4:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 5:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 6:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 7:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 8:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 9:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 Round 10:
-- Bag Holder: Error - model 'qwen3:4b' not found (status code: 404)
-- Gamer: Error - model 'qwen3:4b' not found (status code: 404)
-- Tree Hugger: Error - model 'qwen3:4b' not found (status code: 404)
+- Bag Holder: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Gamer: Error - model 'qwen3:0.5b' not found (status code: 404)
+- Tree Hugger: Error - model 'qwen3:0.5b' not found (status code: 404)
 
 ============================================================
 FINAL RESULT: NO CONSENSUS
 Rounds: 10
 ============================================================
-
-    ~/Doc/Gi/gpu-price-maximizer/gpu    main !4 ?5  
