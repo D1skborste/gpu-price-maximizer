@@ -7,10 +7,11 @@ IMPORTANT: You MUST perform a web search, using at least 3 websites to find CURR
 Analyze ALL of the following GPU models at once and compare their value:
 {_gpu_list}
 
-For EACH GPU, provide a detailed "computational justification" that includes:
+Create a log file:
+For EACH search engine AND EACH GPU, provide a detailed "computational justification" that includes:
 1. Current market price (exact price from retailers)
 2. Historical price inflation adjustments (compare to 6 months ago, 1 year ago)
-3. Local electricity cost analysis (assume $0.12/kWh, calculate ROI for gaming vs mining)
+3. Local electricity cost analysis (based on the previous 6 month norther european average, calculate ROI for gaming vs mining)
 4. Frame-rate-per-dollar value calculation (compare FPS in popular games to price)
 5. Final "Bargain Score" from 0-100 for EACH card
 
